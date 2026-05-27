@@ -1,0 +1,30 @@
+.fileView {
+  min-height: 320px;
+}
+
+.fileViewCard {
+  height: 100%;
+  min-height: 320px;
+  border: 1px dashed rgba(106, 61, 240, 0.2);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(106, 61, 240, 0.04), transparent 38%),
+    var(--color-surface-strong);
+  padding: 22px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.fileViewLabel {
+  color: var(--color-purple);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fileViewText {
+  margin: 0;
+  color: var(--color-muted);
+}

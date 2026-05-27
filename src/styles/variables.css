@@ -1,0 +1,17 @@
+:root {
+  --color-background: #ffffff;
+  --color-surface: #f6f6f8;
+  --color-surface-strong: #efeff4;
+  --color-border: #d8d8e2;
+  --color-text: #1f1f28;
+  --color-muted: #6d6f7c;
+  --color-purple: #6a3df0;
+  --color-purple-soft: rgba(106, 61, 240, 0.1);
+  --color-shadow: rgba(24, 24, 38, 0.08);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 12px;
+  --container-width: 1180px;
+  --header-height: 80px;
+}
