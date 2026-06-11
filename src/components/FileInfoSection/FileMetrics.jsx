@@ -1,11 +1,27 @@
 import styles from './FileMetrics.module.css';
 
-function formatMetricValue(value, suffix = '') {
+function formatMetricValue(value, suffix = '', fractionDigits = null) {
   if (value === null || value === undefined) {
     return '—';
   }
 
-  return `${new Intl.NumberFormat('en-US').format(value)}${suffix}`;
+  const formatterOptions =
+    fractionDigits === null
+      ? undefined
+      : {
+          minimumFractionDigits: fractionDigits,
+          maximumFractionDigits: fractionDigits,
+        };
+
+  return `${new Intl.NumberFormat('en-US', formatterOptions).format(value)}${suffix}`;
+}
+
+function formatWatertightValue(value) {
+  if (value === null || value === undefined) {
+    return '—';
+  }
+
+  return value ? '✓' : 'x';
 }
 
 function FileMetrics({ metrics, statusMessage }) {
@@ -21,8 +37,16 @@ function FileMetrics({ metrics, statusMessage }) {
           <strong className={styles.fileMetricsValue}>{formatMetricValue(metrics.vertexCount)}</strong>
         </div>
         <div className={styles.fileMetricsItem}>
+          <span className={styles.fileMetricsLabel}>Surface Area</span>
+          <strong className={styles.fileMetricsValue}>{formatMetricValue(metrics.surfaceArea, ' mm^2', 1)}</strong>
+        </div>
+        <div className={styles.fileMetricsItem}>
           <span className={styles.fileMetricsLabel}>Volume</span>
-          <strong className={styles.fileMetricsValue}>{formatMetricValue(metrics.volume)}</strong>
+          <strong className={styles.fileMetricsValue}>{formatMetricValue(metrics.volume, ' mm^3', 1)}</strong>
+        </div>
+        <div className={styles.fileMetricsItem}>
+          <span className={styles.fileMetricsLabel}>Watertight</span>
+          <strong className={styles.fileMetricsValue}>{formatWatertightValue(metrics.isWatertight)}</strong>
         </div>
       </div>
       <p className={styles.fileMetricsStatus}>{statusMessage}</p>

@@ -1,11 +1,7 @@
 const metricsEndpoint = '/metrics';
 
 export async function fetchFileMetrics(file) {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
-
-  if (!baseUrl) {
-    throw new Error('Backend API is not configured yet.');
-  }
+  const baseUrl = import.meta.env.VITE_API_BASE_URL?.trim() || 'http://localhost:8000';
 
   const formData = new FormData();
   formData.append('file', file);
@@ -22,8 +18,10 @@ export async function fetchFileMetrics(file) {
   const payload = await response.json();
 
   return {
-    triangleCount: payload.triangleCount ?? payload.triangles ?? null,
-    vertexCount: payload.vertexCount ?? payload.vertices ?? null,
+    triangleCount: payload.triangle_count ?? payload.triangleCount ?? payload.triangles ?? null,
+    vertexCount: payload.vertex_count ?? payload.vertexCount ?? payload.vertices ?? null,
+    surfaceArea: payload.surface_area ?? payload.surfaceArea ?? null,
     volume: payload.volume ?? null,
+    isWatertight: payload.is_watertight ?? payload.isWatertight ?? null,
   };
 }

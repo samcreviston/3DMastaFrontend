@@ -11,19 +11,9 @@ function FileUploadCard({ upload }) {
     isDragActive,
     isFetchingMetrics,
     openFilePicker,
-    primaryActionLabel,
     selectedFile,
     statusMessage,
   } = upload;
-
-  const handlePrimaryAction = () => {
-    if (selectedFile) {
-      handleGetMetrics();
-      return;
-    }
-
-    openFilePicker();
-  };
 
   const rootProps = getRootProps({
     className: styles.uploadCardBar,
@@ -54,12 +44,22 @@ function FileUploadCard({ upload }) {
       <div {...rootProps}>
         <input {...getInputProps()} />
         <div className={styles.uploadCardBarCopy}>
-          <span className={styles.uploadCardFileName}>{selectedFile ? selectedFile.name : 'drop a file for upload or click to browse'}</span>
+          <span className={styles.uploadCardFileName}>{selectedFile ? selectedFile.name : 'drop a file for upload'}</span>
           <span className={styles.uploadCardStatus}>{isDragActive ? 'Release to upload.' : statusMessage}</span>
         </div>
-        <button className={styles.uploadCardAction} type="button" onClick={handlePrimaryAction} disabled={isFetchingMetrics}>
-          {primaryActionLabel}
-        </button>
+        <div className={styles.uploadCardActions}>
+          <button className={styles.uploadCardActionSecondary} type="button" onClick={openFilePicker} disabled={isFetchingMetrics}>
+            choose file
+          </button>
+          <button
+            className={styles.uploadCardAction}
+            type="button"
+            onClick={handleGetMetrics}
+            disabled={!selectedFile || isFetchingMetrics}
+          >
+            {isFetchingMetrics ? 'working...' : 'get metrics!'}
+          </button>
+        </div>
       </div>
     </div>
   );

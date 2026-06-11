@@ -7,7 +7,9 @@ const FILE_TYPE_OPTIONS = ['STL', 'GLB', 'OBJ'];
 const emptyMetrics = {
   triangleCount: null,
   vertexCount: null,
+  surfaceArea: null,
   volume: null,
+  isWatertight: null,
 };
 
 export function getFileTypeFromName(fileName) {
@@ -84,8 +86,6 @@ export function useFileUpload() {
     }
   }, [isFetchingMetrics, selectedFile]);
 
-  const primaryActionLabel = selectedFile ? (isFetchingMetrics ? 'working...' : 'get metrics!') : 'browse';
-
   const statusMessage = useMemo(() => {
     if (errorMessage) {
       return errorMessage;
@@ -95,7 +95,7 @@ export function useFileUpload() {
       return `${selectedFile.name} is ready for metric extraction.`;
     }
 
-    return 'Drop a file or browse to upload a supported 3D model.';
+    return 'Drop a file or choose file to upload a supported 3D model.';
   }, [errorMessage, selectedFile]);
 
   return {
@@ -110,7 +110,6 @@ export function useFileUpload() {
     isFetchingMetrics,
     metrics,
     openFilePicker: dropzone.open,
-    primaryActionLabel,
     selectedFile,
     statusMessage,
   };
