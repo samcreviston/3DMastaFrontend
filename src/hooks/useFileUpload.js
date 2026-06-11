@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { fetchFileMetrics } from '../services/api';
 
-const FILE_TYPE_OPTIONS = ['STL', 'GLB', 'OBJ'];
+const FILE_TYPE_OPTIONS = ['STL', 'GLB', 'GLTF', 'OBJ', '3MF'];
 
 const emptyMetrics = {
   triangleCount: null,
@@ -23,8 +23,16 @@ export function getFileTypeFromName(fileName) {
     return 'GLB';
   }
 
+  if (extension === 'gltf') {
+    return 'GLTF';
+  }
+
   if (extension === 'obj') {
     return 'OBJ';
+  }
+
+  if (extension === '3mf') {
+    return '3MF';
   }
 
   return null;
@@ -58,7 +66,9 @@ export function useFileUpload() {
     accept: {
       'model/stl': ['.stl'],
       'model/gltf-binary': ['.glb'],
+      'model/gltf+json': ['.gltf'],
       'model/obj': ['.obj'],
+      'model/3mf': ['.3mf'],
     },
   });
 

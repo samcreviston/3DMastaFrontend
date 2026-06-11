@@ -8,7 +8,7 @@ function FileUploadSection({ upload }) {
         <h1 id="upload-section-title" className={styles.uploadSectionTitle}>
           Upload your file
         </h1>
-        <p className={styles.uploadSectionSubtitle}>STL, GLB, and OBJ uploads are supported for the first pass.</p>
+        <p className={styles.uploadSectionSubtitle}>STL, GLB, GLTF, OBJ, and 3MF uploads are supported for the first pass.</p>
       </div>
       <FileUploadCard upload={upload} />
     </section>
