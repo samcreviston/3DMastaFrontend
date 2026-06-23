@@ -44,6 +44,7 @@ export function useFileUpload() {
   const [metrics, setMetrics] = useState(emptyMetrics);
   const [isFetchingMetrics, setIsFetchingMetrics] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [metricsReady, setMetricsReady] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -56,6 +57,7 @@ export function useFileUpload() {
     setSelectedType(getFileTypeFromName(file.name));
     setMetrics(emptyMetrics);
     setErrorMessage('');
+    setMetricsReady(false);
   }, []);
 
   const dropzone = useDropzone({
@@ -89,6 +91,7 @@ export function useFileUpload() {
     try {
       const nextMetrics = await fetchFileMetrics(selectedFile);
       setMetrics(nextMetrics);
+      setMetricsReady(true);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Unable to fetch metrics.');
     } finally {
@@ -119,6 +122,7 @@ export function useFileUpload() {
     isDragActive: dropzone.isDragActive,
     isFetchingMetrics,
     metrics,
+    metricsReady,
     openFilePicker: dropzone.open,
     selectedFile,
     statusMessage,

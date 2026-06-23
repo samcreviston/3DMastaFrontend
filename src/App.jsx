@@ -12,7 +12,7 @@ function App() {
       <Header />
       <main className="appMain">
         <FileUploadSection upload={upload} />
-        <FileInfoSection metrics={upload.metrics} statusMessage={upload.statusMessage} />
+        <FileInfoSection metrics={upload.metrics} statusMessage={upload.statusMessage} selectedFile={upload.selectedFile} metricsReady={upload.metricsReady} />
       </main>
       <Footer />
     </div>
