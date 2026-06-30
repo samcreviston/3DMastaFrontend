@@ -12,7 +12,8 @@ export async function fetchFileMetrics(file) {
   });
 
   if (!response.ok) {
-    throw new Error('Unable to fetch metrics from the backend.');
+    const body = await response.json().catch(() => ({}));
+    throw new Error(body.detail || 'Unable to fetch metrics from the backend.');
   }
 
   const payload = await response.json();
