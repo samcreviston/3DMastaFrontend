@@ -16,14 +16,6 @@ function formatMetricValue(value, suffix = '', fractionDigits = null) {
   return `${new Intl.NumberFormat('en-US', formatterOptions).format(value)}${suffix}`;
 }
 
-function formatWatertightValue(value) {
-  if (value === null || value === undefined) {
-    return '—';
-  }
-
-  return value ? '✓' : 'x';
-}
-
 function FileMetrics({ metrics, statusMessage }) {
   return (
     <aside className={styles.fileMetrics} aria-label="File metrics">
@@ -43,10 +35,6 @@ function FileMetrics({ metrics, statusMessage }) {
         <div className={styles.fileMetricsItem}>
           <span className={styles.fileMetricsLabel}>Volume</span>
           <strong className={styles.fileMetricsValue}>{formatMetricValue(metrics.volume, ' mm^3', 1)}</strong>
-        </div>
-        <div className={styles.fileMetricsItem}>
-          <span className={styles.fileMetricsLabel}>Watertight</span>
-          <strong className={styles.fileMetricsValue}>{formatWatertightValue(metrics.isWatertight)}</strong>
         </div>
       </div>
       <p className={styles.fileMetricsStatus}>{statusMessage}</p>

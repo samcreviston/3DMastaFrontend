@@ -24,5 +24,7 @@ export async function fetchFileMetrics(file) {
     surfaceArea: payload.surface_area ?? payload.surfaceArea ?? null,
     volume: payload.volume ?? null,
     isWatertight: payload.is_watertight ?? payload.isWatertight ?? null,
+    triangleDensity: payload.triangle_density ?? null,
+    triangleDensityLevel: payload.triangle_density_level ?? null,
   };
 }

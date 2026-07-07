@@ -1,5 +1,6 @@
 import styles from './FileInfoSection.module.css';
 import FileMetrics from './FileMetrics';
+import FileRating from './FileRating';
 import FileViewWindow from './FileViewWindow';
 
 function FileInfoSection({ metrics, statusMessage, selectedFile, metricsReady }) {
@@ -11,8 +12,9 @@ function FileInfoSection({ metrics, statusMessage, selectedFile, metricsReady })
         </h2>
       </div>
       <div className={styles.fileInfoGrid}>
-        <FileMetrics metrics={metrics} statusMessage={statusMessage} />
+        <FileRating metrics={metrics} />
         <FileViewWindow selectedFile={selectedFile} metricsReady={metricsReady} />
+        <FileMetrics metrics={metrics} statusMessage={statusMessage} />
       </div>
     </section>
   );

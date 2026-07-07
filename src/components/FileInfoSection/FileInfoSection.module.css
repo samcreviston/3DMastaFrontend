@@ -21,7 +21,7 @@
 
 @media (min-width: 860px) {
   .fileInfoGrid {
-    grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
+    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr) minmax(230px, 0.34fr);
     align-items: stretch;
   }
 }

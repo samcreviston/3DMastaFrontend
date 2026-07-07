@@ -10,6 +10,8 @@ const emptyMetrics = {
   surfaceArea: null,
   volume: null,
   isWatertight: null,
+  triangleDensity: null,
+  triangleDensityLevel: null,
 };
 
 export function getFileTypeFromName(fileName) {
