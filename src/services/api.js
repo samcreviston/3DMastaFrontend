@@ -17,6 +17,7 @@ export async function fetchFileMetrics(file) {
   }
 
   const payload = await response.json();
+  const boundingBox = payload.bounding_box ?? payload.boundingBox ?? {};
 
   return {
     triangleCount: payload.triangle_count ?? payload.triangleCount ?? payload.triangles ?? null,
@@ -26,5 +27,8 @@ export async function fetchFileMetrics(file) {
     isWatertight: payload.is_watertight ?? payload.isWatertight ?? null,
     triangleDensity: payload.triangle_density ?? null,
     triangleDensityLevel: payload.triangle_density_level ?? null,
+    height: boundingBox.height ?? null,
+    width: boundingBox.width ?? null,
+    depth: boundingBox.depth ?? null,
   };
 }

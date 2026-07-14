@@ -12,6 +12,9 @@ const emptyMetrics = {
   isWatertight: null,
   triangleDensity: null,
   triangleDensityLevel: null,
+  height: null,
+  width: null,
+  depth: null,
 };
 
 export function getFileTypeFromName(fileName) {

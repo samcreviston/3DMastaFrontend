@@ -134,8 +134,8 @@ function FileViewWindow({ selectedFile, metricsReady }) {
   }, [selectedFile, metricsReady]);
 
   return (
-    <section className={styles.fileView} aria-label="File view window">
-      <span className={styles.fileViewLabel}>file view window</span>
+    <section className={styles.fileView} aria-label="File view">
+      <span className={styles.fileViewLabel}>File View</span>
       <div className={styles.fileViewCard}>
         {!metricsReady ? (
           <p className={styles.fileViewText}>click "get metrics" to view the file</p>

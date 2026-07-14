@@ -17,11 +17,21 @@ function formatDetailRating(value, level) {
   return { descriptor: level ?? score, score: level ? score : null };
 }
 
+function formatDimensionValue(value) {
+  if (value === null || value === undefined) {
+    return '—';
+  }
+
+  return `${new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  }).format(value)} mm`;
+}
+
 function FileRating({ metrics }) {
   return (
     <aside className={styles.fileRating} aria-label="File rating">
       <div className={styles.fileRatingCard}>
-        <h3 className={styles.fileRatingTitle}>File Rating</h3>
         <div className={styles.fileRatingItem}>
           <span className={styles.fileRatingLabel}>Detail Rating</span>
           {(() => {
@@ -37,6 +47,18 @@ function FileRating({ metrics }) {
         <div className={styles.fileRatingItem}>
           <span className={styles.fileRatingLabel}>Watertight</span>
           <strong className={styles.fileRatingValue}>{formatWatertightValue(metrics.isWatertight)}</strong>
+        </div>
+        <div className={styles.fileRatingItem}>
+          <span className={styles.fileRatingLabel}>Height</span>
+          <strong className={styles.fileRatingValue}>{formatDimensionValue(metrics.height)}</strong>
+        </div>
+        <div className={styles.fileRatingItem}>
+          <span className={styles.fileRatingLabel}>Width</span>
+          <strong className={styles.fileRatingValue}>{formatDimensionValue(metrics.width)}</strong>
+        </div>
+        <div className={styles.fileRatingItem}>
+          <span className={styles.fileRatingLabel}>Depth</span>
+          <strong className={styles.fileRatingValue}>{formatDimensionValue(metrics.depth)}</strong>
         </div>
       </div>
     </aside>
