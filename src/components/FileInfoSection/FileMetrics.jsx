@@ -16,10 +16,10 @@ function formatMetricValue(value, suffix = '', fractionDigits = null) {
   return `${new Intl.NumberFormat('en-US', formatterOptions).format(value)}${suffix}`;
 }
 
-function FileMetrics({ metrics, statusMessage }) {
+function FileMetrics({ metrics, statusMessage, metricsReady }) {
   return (
     <aside className={styles.fileMetrics} aria-label="File metrics">
-      <div className={styles.fileMetricsCard}>
+      <div className={metricsReady ? `${styles.fileMetricsCard} ${styles.fileMetricsCardReady}` : styles.fileMetricsCard}>
         <div className={styles.fileMetricsItem}>
           <span className={styles.fileMetricsLabel}>Triangle Count</span>
           <strong className={styles.fileMetricsValue}>{formatMetricValue(metrics.triangleCount)}</strong>

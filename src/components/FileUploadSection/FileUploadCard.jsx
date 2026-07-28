@@ -16,7 +16,7 @@ function FileUploadCard({ upload }) {
   } = upload;
 
   const rootProps = getRootProps({
-    className: styles.uploadCardBar,
+    className: isDragActive ? `${styles.uploadCardBar} ${styles.uploadCardBarDragActive}` : styles.uploadCardBar,
     'aria-label': 'Drop a 3D model file here',
   });
 

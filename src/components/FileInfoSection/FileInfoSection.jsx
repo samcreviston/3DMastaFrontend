@@ -12,9 +12,9 @@ function FileInfoSection({ metrics, statusMessage, selectedFile, metricsReady })
         </h2>
       </div>
       <div className={styles.fileInfoGrid}>
-        <FileRating metrics={metrics} />
+        <FileRating metrics={metrics} metricsReady={metricsReady} />
         <FileViewWindow selectedFile={selectedFile} metricsReady={metricsReady} />
-        <FileMetrics metrics={metrics} statusMessage={statusMessage} />
+        <FileMetrics metrics={metrics} statusMessage={statusMessage} metricsReady={metricsReady} />
       </div>
     </section>
   );

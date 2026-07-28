@@ -28,10 +28,10 @@ function formatDimensionValue(value) {
   }).format(value)} mm`;
 }
 
-function FileRating({ metrics }) {
+function FileRating({ metrics, metricsReady }) {
   return (
     <aside className={styles.fileRating} aria-label="File rating">
-      <div className={styles.fileRatingCard}>
+      <div className={metricsReady ? `${styles.fileRatingCard} ${styles.fileRatingCardReady}` : styles.fileRatingCard}>
         <div className={styles.fileRatingItem}>
           <span className={styles.fileRatingLabel}>Detail Rating</span>
           {(() => {

@@ -66,6 +66,29 @@
     0 0 0 4px rgba(106, 61, 240, 0.06);
 }
 
+.uploadCardBarDragActive {
+  animation: uploadDropTargetPulse 1.6s ease-in-out infinite;
+  background: rgba(106, 61, 240, 0.05);
+  border-color: rgba(106, 61, 240, 0.65);
+}
+
+@keyframes uploadDropTargetPulse {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.92),
+      0 0 0 4px rgba(106, 61, 240, 0.08),
+      0 10px 22px rgba(106, 61, 240, 0.1);
+  }
+
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.92),
+      0 0 0 8px rgba(106, 61, 240, 0.12),
+      0 16px 30px rgba(106, 61, 240, 0.2);
+  }
+}
+
 .uploadCardBarCopy {
   min-width: 0;
   display: grid;
@@ -154,6 +177,13 @@
 .uploadCardActionSecondary:disabled {
   opacity: 0.7;
   cursor: wait;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uploadCardBarDragActive {
+    animation: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 720px) {
