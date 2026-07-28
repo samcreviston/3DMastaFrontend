@@ -8,6 +8,7 @@
 .fileViewCard {
   flex: 1;
   min-height: 290px;
+  position: relative;
   border: 1px dashed rgba(106, 61, 240, 0.2);
   border-radius: var(--radius-xl);
   background:
@@ -41,4 +42,23 @@
   display: block;
   width: 100% !important;
   height: 100% !important;
+}
+
+.invalidEdgesToggle {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.invalidEdgesToggle input {
+  margin: 0;
+  cursor: pointer;
 }

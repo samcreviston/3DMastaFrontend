@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
@@ -20,6 +20,34 @@ function fitCameraToObject(camera, object, controls) {
   camera.updateProjectionMatrix();
   controls.target.copy(center);
   controls.update();
+}
+
+function createBoundaryEdgesOverlay(boundaryEdges) {
+  const { coordinate_space: coordinateSpace, segment_count: segmentCount, positions } = boundaryEdges ?? {};
+
+  if (
+    coordinateSpace !== 'model'
+    || !Number.isInteger(segmentCount)
+    || segmentCount <= 0
+    || !Array.isArray(positions)
+    || positions.length !== segmentCount * 6
+    || !positions.every(Number.isFinite)
+  ) {
+    return null;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+
+  const material = new THREE.LineBasicMaterial({
+    color: 0xff0000,
+    depthTest: false,
+    depthWrite: false,
+  });
+  const overlay = new THREE.LineSegments(geometry, material);
+  overlay.renderOrder = 1;
+
+  return overlay;
 }
 
 function loadFileIntoScene(file, scene, camera, controls) {
@@ -69,8 +97,18 @@ function loadFileIntoScene(file, scene, camera, controls) {
   }
 }
 
-function FileViewWindow({ selectedFile, metricsReady }) {
+function FileViewWindow({ selectedFile, metrics, metricsReady }) {
   const containerRef = useRef(null);
+  const boundaryEdgesOverlayRef = useRef(null);
+  const [showInvalidEdges, setShowInvalidEdges] = useState(true);
+  const showInvalidEdgesRef = useRef(showInvalidEdges);
+  showInvalidEdgesRef.current = showInvalidEdges;
+
+  useEffect(() => {
+    if (boundaryEdgesOverlayRef.current) {
+      boundaryEdgesOverlayRef.current.visible = showInvalidEdges;
+    }
+  }, [showInvalidEdges]);
 
   useEffect(() => {
     if (!metricsReady || !selectedFile || !containerRef.current) return;
@@ -103,6 +141,13 @@ function FileViewWindow({ selectedFile, metricsReady }) {
     fillLight.position.set(-3, -1, -2);
     scene.add(fillLight);
 
+    const boundaryEdgesOverlay = createBoundaryEdgesOverlay(metrics?.boundaryEdges);
+    if (boundaryEdgesOverlay) {
+      boundaryEdgesOverlay.visible = showInvalidEdgesRef.current;
+      boundaryEdgesOverlayRef.current = boundaryEdgesOverlay;
+      scene.add(boundaryEdgesOverlay);
+    }
+
     loadFileIntoScene(selectedFile, scene, camera, controls);
 
     let animFrameId;
@@ -127,11 +172,16 @@ function FileViewWindow({ selectedFile, metricsReady }) {
       resizeObserver.disconnect();
       controls.dispose();
       renderer.dispose();
+      boundaryEdgesOverlay?.geometry.dispose();
+      boundaryEdgesOverlay?.material.dispose();
+      if (boundaryEdgesOverlayRef.current === boundaryEdgesOverlay) {
+        boundaryEdgesOverlayRef.current = null;
+      }
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, [selectedFile, metricsReady]);
+  }, [selectedFile, metrics, metricsReady]);
 
   return (
     <section className={styles.fileView} aria-label="File view">
@@ -140,7 +190,17 @@ function FileViewWindow({ selectedFile, metricsReady }) {
         {!metricsReady ? (
           <p className={styles.fileViewText}>click "get metrics" to view the file</p>
         ) : (
-          <div ref={containerRef} className={styles.fileViewCanvas} />
+          <>
+            <div ref={containerRef} className={styles.fileViewCanvas} />
+            <label className={styles.invalidEdgesToggle}>
+              <input
+                type="checkbox"
+                checked={showInvalidEdges}
+                onChange={(event) => setShowInvalidEdges(event.target.checked)}
+              />
+              Toggle invalid edges
+            </label>
+          </>
         )}
       </div>
     </section>

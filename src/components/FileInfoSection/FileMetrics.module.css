@@ -50,7 +50,60 @@
 
 .fileMetricsLabel {
   color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
   font-size: 0.9rem;
+}
+
+.metricInfoButton {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: help;
+}
+
+.metricInfoButton:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.metricTooltip {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max-content;
+  max-width: min(260px, calc(100vw - 48px));
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: 0 8px 20px var(--color-shadow);
+  color: var(--color-text);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  visibility: hidden;
+}
+
+.metricInfoButton:hover + .metricTooltip,
+.metricInfoButton:focus-visible + .metricTooltip {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
 }
 
 .fileMetricsValue {
