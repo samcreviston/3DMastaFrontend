@@ -1,6 +1,6 @@
 # 3DMasta Frontend
 
-3DMasta is a browser-based 3D mesh inspector. Upload an STL, GLB, GLTF, OBJ, or 3MF file to preview the model and retrieve geometry metrics from the [3DMasta API](https://github.com/samcreviston/3DMasta_API).
+3DMasta is a browser-based 3D mesh analyzer. Upload an STL, GLB, GLTF, OBJ, or 3MF file to preview the model and retrieve geometry metrics from my personal API.
 
 ## Tech stack
 
@@ -12,7 +12,7 @@
 
 ## Getting started
 
-Prerequisites: Node.js 18+ and a running instance of the [3DMasta API](https://github.com/samcreviston/3DMasta_API).
+Prerequisites: Node.js 18+
 
 ```bash
 npm install
