@@ -1,7 +1,7 @@
 const metricsEndpoint = '/metrics';
 
 export async function fetchFileMetrics(file) {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL?.trim() || 'http://localhost:8000';
+  const baseUrl = import.meta.env.VITE_API_BASE_URL?.trim() || 'https://threedmasta-api.onrender.com';
 
   const formData = new FormData();
   formData.append('file', file);
